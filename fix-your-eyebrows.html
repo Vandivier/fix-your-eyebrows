@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fix Your Eyebrows</title>
+<style>
+.app-main {
+  width: 80vw;
+  height: 80vh;
+  margin: auto;
+  background-color: grey;
+  border: 5px solid darkgrey;
+}
+.video-main {
+  position: absolute;
+  width: 80vw;
+  height: 80vh;
+}
+.stencil {
+  position: absolute;
+  top: 50%;
+  margin-top: -30vw;
+  left: 50%;
+  margin-left: -15vw;
+  width: 30vw;
+  height: 45vw;
+  background-image: url(stencil.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="app-main">
+    <video class="video-main"></video>
+    <div class="stencil"></div>
+  </div>
+</div>
+<script>
+  //(function(){
+      var p = navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+
+      p.then(function(mediaStream) {
+        var video = document.querySelector('.video-main');
+        video.src = window.URL.createObjectURL(mediaStream);
+        video.onloadedmetadata = function(e) {
+          // Do something with the video here.
+          video.play();
+        };
+      });
+
+      p.catch(function(err) { console.log(err.name); }); // always check for errors at the end
+  //});
+  //ref: https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
+  //ref: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+</script>
+</body>
+</html>
